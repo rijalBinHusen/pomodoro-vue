@@ -5,7 +5,7 @@ import { useDatabaseStore } from '../stores/database'
 import FormInput from '../components/FormInput.vue'
 import TaskCard from '../components/TaskCard.vue'
 import ModalSetting from '../components/ModalSetting.vue'
-import ProjectsMain from './Home/ProjectsMain.vue'
+import ProjectsMain from './Home/Projects/ProjectsMain.vue'
 
 const timerStore = useTimerStore()
 const { tasks, taskActive, setTaskActive } = useDatabaseStore()
@@ -124,7 +124,7 @@ watchEffect(() => {
       <ProjectsMain />
       <div class="flex-row gap-2.5 w-96">
         <div
-          class="nav-task pb-4 border-b-2 border-emerald-400 flex flex-row justify-between items-center"
+          class="nav-task h-14 pb-4 border-b-2 border-emerald-400 flex flex-row justify-between items-center"
         >
           <span class="text-lg font-semibold">Tasks</span>
           <button
