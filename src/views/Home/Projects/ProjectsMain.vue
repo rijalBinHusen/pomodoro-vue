@@ -12,6 +12,7 @@
             :key="project.projectId"
             :projectId="project.projectId"
             :projectName="project.projectName"
+            :projectDefault="project.isDefault"
             />
             <!-- @edit-project="editTask(task.id)" -->
         </div>

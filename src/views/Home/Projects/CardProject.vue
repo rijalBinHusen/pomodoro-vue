@@ -7,6 +7,7 @@ const emit = defineEmits(['edit-project'])
 const props = defineProps({
     projectId: Number,
     projectName: String,
+    projectDefault: Boolean,
 })
 
 
@@ -45,47 +46,14 @@ function setAsProjectActive () {
           {{ props.projectName }}
         </span>
       </h3>
-      <div class="flex flex-row gap-2 items-center">
-        <!-- <span class="font-semibold text-slate-800/70">
-          {{ task.count + ' /' + task.target }}
-        </span> -->
-        <!-- <div class="relative dropdown-wrapper">
-          <button
-            class="p-1 rounded text-slate-400 bg-white hover:bg-slate-200/40 flex flex-row border border-slate-400/50"
-            @click="showDropdown = !showDropdown"
-          >
-            <span class="material-icons font-bold">more_vert</span>
-          </button>
-          <div
-            @mouseenter="mouseIsInside = true"
-            @mouseleave="mouseIsInside = false"
-            class="absolute right-0 top-2 translate-y-1/2 bg-white shadow-lg rounded p-1 w-48 z-20 border"
-            v-show="showDropdown"
-          >
-            <button
-              class="flex flex-row items-center gap-2 hover:bg-slate-200 w-full p-1 rounded"
-              @click="markAsCompleted"
-            >
-              <span class="material-icons font-bold !text-sm">check_circle</span>
-              <span class="text-sm">Mark As Completed</span>
-            </button>
-        -->
-            <button
-              class="flex flex-row items-center gap-2 hover:bg-slate-200 w-full p-1 rounded"
-              @click="editProject"
-            >
-              <span class="material-icons font-bold !text-sm">edit</span>
-              <span class="text-sm">Edit</span>
-            </button>
-            <!-- <button
-              class="flex flex-row items-center gap-2 hover:bg-slate-200 w-full p-1 rounded"
-              @click="deleteTask"
-            >
-              <span class="material-icons font-bold !text-sm">delete</span>
-              <span class="text-sm">Delete</span>
-            </button>
-          </div>
-        </div> -->
+      <div v-if="!props.projectDefault" class="flex flex-row gap-2 items-center">
+        <button
+            class="flex flex-row items-center gap-2 hover:bg-slate-200 w-full p-1 rounded"
+            @click="editProject"
+        >
+            <span class="material-icons font-bold !text-sm">edit</span>
+            <span class="text-sm">Edit</span>
+        </button>
       </div>
     </div>
   </div>
