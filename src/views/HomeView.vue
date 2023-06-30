@@ -5,6 +5,7 @@ import { useDatabaseStore } from '../stores/database'
 import FormInput from '../components/FormInput.vue'
 import TaskCard from '../components/TaskCard.vue'
 import ModalSetting from '../components/ModalSetting.vue'
+import ProjectsMain from './Home/ProjectsMain.vue'
 
 const timerStore = useTimerStore()
 const { tasks, taskActive, setTaskActive } = useDatabaseStore()
@@ -120,9 +121,7 @@ watchEffect(() => {
     </div>
 
     <div class="content mx-auto gap-2.5 py-8 text-emerald-50 flex md:flex-row flex-col ">
-      <div class="w-96">
-        <p>Todo category</p>
-      </div>
+      <ProjectsMain />
       <div class="flex-row gap-2.5 w-96">
         <div
           class="nav-task pb-4 border-b-2 border-emerald-400 flex flex-row justify-between items-center"
@@ -135,7 +134,7 @@ watchEffect(() => {
           </button>
         </div>
 
-        <div class="flex flex-col gap-y-2 my-6" v-if="tasks.length">
+        <div class="flex flex-col gap-y-2 mt-6" v-if="tasks.length">
           <TaskCard
             v-for="task in tasks"
             :key="task.id"
@@ -151,7 +150,7 @@ watchEffect(() => {
 
         <button
           v-else
-          class="py-2 bg-emerald-800/70 text-lg w-full font-semibold text-emerald-200 hover:bg-emerald-800 rounded border-2 border-dashed border-emerald-400 flex flex-row gap-1 items-center justify-center"
+          class="py-2 mt-6 bg-emerald-800/70 text-lg w-full font-semibold text-emerald-200 hover:bg-emerald-800 rounded border-2 border-dashed border-emerald-400 flex flex-row gap-1 items-center justify-center"
           @click="showForm"
         >
           <span class="material-icons"> add_circle </span> Add Task
