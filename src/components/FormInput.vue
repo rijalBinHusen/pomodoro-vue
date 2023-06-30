@@ -98,7 +98,7 @@ const decrementTaskCount = () => {
         </div>
       </div>
     </div>
-    <div class="card-footer bg-slate-200 p-3 flex flex-row gap-2 justify-end">
+    <div class="card-footer bg-slate-200 p-2 flex flex-row gap-2 justify-end">
       <button class="py-2.5 px-5 rounded text-sm font-semibold" @click="closeForm">Cancel</button>
       <button
         class="py-2.5 px-5 rounded bg-slate-800/90 hover:bg-slate-800 text-rose-50 shadow-xl flex text-sm font-semibold flex-row self-end"
