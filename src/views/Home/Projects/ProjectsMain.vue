@@ -6,7 +6,7 @@
           <span class="text-lg font-semibold">Projects</span>
         </div>
 
-        <div class="flex flex-col gap-y-2 mt-6" v-if="projects.length">
+        <div class="flex flex-col gap-y-1 mt-6" v-if="projects.length">
           <CardProject
             v-for="project in projects"
             :key="project.projectId"

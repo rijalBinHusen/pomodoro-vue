@@ -30,18 +30,19 @@ function setAsProjectActive () {
 <template>
   <div
     :class="{
-      'border-slate-900': isActive,
-      'hover:border-slate-900/30': !isActive
+      'border-slate-900 mr-2 opacity-100': isActive,
+      'hover:border-slate-900/30 opacity-70': !isActive
     }"
-    class="px-3 py-2 w-full bg-white text-slate-900 rounded flex flex-col border-l-[6px] group hover:cursor-pointer"
+    class="transition-colors duration-700 transform px-3 w-full bg-white text-slate-900 rounded flex flex-col border-l-[6px] group hover:cursor-pointer"
     @click="setAsProjectActive"
   >
-    <div class="flex flex-row items-center justify-between py-2">
+    <div class="flex flex-row items-center justify-between py-1">
       <h3 class="flex items-center font-semibold text-lg">
         <span
-          :class="['material-icons font-bold mr-2', isActive ? ' opacity-100 ' : ' opacity-70 ']"
-          >check_circle</span
-        >
+          class="material-icons font-bold mr-2"
+          >
+        {{ isActive ? 'check_circle' : 'remove_circle' }}
+        </span>
         <span>
           {{ props.projectName }}
         </span>
