@@ -6,7 +6,7 @@ export const projects = ref([
     { projectId: 3, projectName: 'Planned', isDefault: true }
 ])
 
-export const projectActive = ref('')
+export const projectActive = ref(1)
 
 export function addProject (projectName) {
 

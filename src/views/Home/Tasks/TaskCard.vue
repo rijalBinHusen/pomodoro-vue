@@ -1,6 +1,6 @@
 <script setup>
 import { computed, defineProps, onMounted, ref } from 'vue'
-import { useDatabaseStore } from '../stores/database';
+import { useDatabaseStore } from '../../../stores/database';
 
 const emit = defineEmits(['delete-task', 'edit-task'])
 const mouseIsInside = ref(false)
