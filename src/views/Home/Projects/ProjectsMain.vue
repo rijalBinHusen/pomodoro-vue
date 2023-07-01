@@ -49,6 +49,8 @@ const projectNameOnEdit = ref('');
 
 function toggleForm () {
   isFormShow.value = !isFormShow.value
+  projectIdOnEdit.value = '';
+  projectNameOnEdit.value = '';
 }
 
 function addNewProject (projectName) {
