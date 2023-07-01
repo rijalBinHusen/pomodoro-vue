@@ -13,12 +13,17 @@
             :projectId="project.projectId"
             :projectName="project.projectName"
             :projectDefault="project.isDefault"
+            @edit-project="editProject(project.projectId)"
             />
-            <!-- @edit-project="editTask(task.id)" -->
         </div>
 
         <div v-if="isFormShow" ref="formContainer">
-          <InputProject @close-form="toggleForm" @add-project="addNewProject" />
+          <InputProject 
+              :projectName="projectNameOnEdit" 
+              @close-form="toggleForm" 
+              @add-project="addNewProject" 
+              @update-project="updateProjectName"
+          />
         </div>
 
         <button
@@ -34,11 +39,13 @@
 <script setup>
 
 import { ref } from "vue";
-import { projects, addProject } from "./ProjectsState"
+import { projects, addProject, findProjectById, updateProjectById } from "./ProjectsState"
 import InputProject from "./InputProject.vue";
 import CardProject from "./CardProject.vue";
 
 const isFormShow = ref(false);
+const projectIdOnEdit = ref(false);
+const projectNameOnEdit = ref('');
 
 function toggleForm () {
   isFormShow.value = !isFormShow.value
@@ -47,6 +54,18 @@ function toggleForm () {
 function addNewProject (projectName) {
   addProject(projectName)
   toggleForm()
+}
+
+function editProject (projectId) {
+  const findProject = findProjectById(projectId);
+  toggleForm();
+  projectIdOnEdit.value = projectId;
+  projectNameOnEdit.value = findProject?.projectName;
+}
+
+function updateProjectName (projectName) {
+  updateProjectById(projectIdOnEdit.value, projectName);
+  toggleForm();
 }
 
 </script>

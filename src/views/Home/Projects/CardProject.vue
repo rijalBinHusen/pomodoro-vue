@@ -43,7 +43,7 @@ function setAsProjectActive () {
           >
         {{ isActive ? 'check_circle' : 'remove_circle' }}
         </span>
-        <span>
+        <span class="break-all">
           {{ props.projectName }}
         </span>
       </h3>

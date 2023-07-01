@@ -28,3 +28,18 @@ export function addProject (projectName) {
 export function setProjectActive (projectId) {
     projectActive.value = projectId
 }
+
+export function findProjectById (projectId) {
+
+    return projects.value.find((rec) => rec?.projectId === projectId);
+
+}
+
+export function updateProjectById (projectId, projectName) {
+    const findIndex = projects.value.findIndex((rec) => rec?.projectId === projectId);
+
+    if(findIndex > -1) {
+        projects.value[findIndex]['projectName'] = projectName;
+    }
+    
+}
