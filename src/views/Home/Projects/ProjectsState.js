@@ -43,3 +43,11 @@ export function updateProjectById (projectId, projectName) {
     }
     
 }
+
+// export function incrementTask (projectId) {
+//     const findIndex = projects.value.findIndex((rec) => rec?.projectId === projectId);
+
+//     if(findIndex > -1) {
+//         projects.value[findIndex]['projectName'] = projectName;
+//     }
+// }
