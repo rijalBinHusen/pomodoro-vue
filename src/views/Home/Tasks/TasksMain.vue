@@ -12,13 +12,22 @@
         </div>
 
         <div class="flex flex-col gap-y-2 mb-6" v-if="listOfTask.length">
+          <template v-for="(task, index) in listOfTask" :key="task.id">
           <TaskCard
-            v-for="task in listOfTask"
-            :key="task.id"
-            :task="task"
+            :index="index"
+            :count="task.count"
+            :isActive="task.isActive"
+            :isCompleted="task.isCompleted"
+            :name="task.name"
+            :notes="task.notes"
+            :projectId="task.projectId"
+            :target="task.target"
+            :id="task.id"
             @delete-task="removeTask(task.id)"
             @edit-task="editTask(task.id)"
           />
+
+        </template>
         </div>
 
         <div v-if="formVisible" ref="formContainer">

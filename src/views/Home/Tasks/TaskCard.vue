@@ -1,12 +1,17 @@
-<script setup>
-import { computed, defineProps, onMounted, ref } from 'vue'
+<script setup lang="ts">
+import { computed, onMounted, ref } from 'vue'
 import { useDatabaseStore } from '../../../stores/database';
+import { type Task } from "./TaskState"
 
 const emit = defineEmits(['delete-task', 'edit-task'])
 const mouseIsInside = ref(false)
 const { taskActive, setTaskActive } = useDatabaseStore()
 
-const props = defineProps(['task'])
+interface propType extends Task {
+  index: number;
+}
+
+const props = defineProps<propType>()
 
 const handleClickOutside = (event) => {
   if (event.target.closest('.dropdown-wrapper') === null) {
@@ -15,11 +20,11 @@ const handleClickOutside = (event) => {
 }
 
 const setTaskAsActive = () => {
-  setTaskActive(props.task)
+  setTaskActive(props.id)
 }
 
 const isActive = computed(() => {
-  return taskActive.id === props.task.id
+  return taskActive.id === props.id
 })
 
 const showDropdown = ref(false)
@@ -33,6 +38,15 @@ const editTask = () => {
 onMounted(() => {
   document.addEventListener('click', handleClickOutside)
 })
+
+function dragStop (elm: any) {
+  console.log('dropped on: ', props.id)
+}
+
+function dragStart (elm: any) {
+  console.log('start drag id: ', elm)
+}
+
 </script>
 
 <template>
@@ -43,22 +57,25 @@ onMounted(() => {
     }"
     class="px-3 py-2 w-full bg-white text-slate-900 rounded flex flex-col border-l-[6px] group hover:cursor-pointer"
     @click="setTaskAsActive"
+    draggable="true"
+    @dragenter="dragStop"
+    @dragstart="dragStart(props.id)"
   >
     <div class="flex flex-row items-center justify-between py-2">
       <h3 class="flex items-center font-semibold text-lg">
         <span
           class="material-icons font-bold mr-2 opacity-70 group-hover:opacity-100"
-          :class="{ 'opacity-100 text-emerald-600': task.isCompleted }"
-          @click="task.isCompleted = !task.isCompleted"
+          :class="{ 'opacity-100 text-emerald-600': props.isCompleted }"
           >check_circle</span
-        >
-        <span :class="{ 'line-through': task.isCompleted }">
-          {{ task.name }}
+          >
+          <!-- @click="props.isCompleted = !props.isCompleted" -->
+        <span :class="{ 'line-through': props.isCompleted }">
+          {{ props.name }}
         </span>
       </h3>
       <div class="flex flex-row gap-2 items-center">
         <span class="font-semibold text-slate-800/70">
-          {{ task.count + ' /' + task.target }}
+          {{ props.count + ' /' + props.target }}
         </span>
         <div class="relative dropdown-wrapper">
           <button
@@ -75,8 +92,8 @@ onMounted(() => {
           >
             <button
               class="flex flex-row items-center gap-2 hover:bg-slate-200 w-full p-1 rounded"
-              @click="markAsCompleted"
-            >
+              >
+              <!-- @click="markAsCompleted" -->
               <span class="material-icons font-bold !text-sm">check_circle</span>
               <span class="text-sm">Mark As Completed</span>
             </button>
@@ -98,9 +115,9 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <div class="pl-8" v-if="task.notes">
+    <div class="pl-8" v-if="props.notes">
       <div class="p-2 bg-amber-100 rounded text-sm">
-        {{ task.notes }}
+        {{ props.notes }}
       </div>
     </div>
   </div>
