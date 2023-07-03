@@ -1,6 +1,6 @@
 import { ref } from "vue"
 
-interface Task {
+export interface Task {
     id: number;
     name: string;
     count: number;
@@ -30,7 +30,7 @@ export class Tasks {
             projectId
         })
 
-        if(isTaskEmpty) {
+        if(isTaskEmpty || taskIdActive.value === 0) {
             this.setTaskActive(taskId)
         }
     }

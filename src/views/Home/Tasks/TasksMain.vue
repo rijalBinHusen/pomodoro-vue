@@ -11,12 +11,12 @@
           </button>
         </div>
 
-        <div class="flex flex-col gap-y-2 mb-6" v-if="tasks.length">
+        <div class="flex flex-col gap-y-2 mb-6" v-if="taksState.length">
           <TaskCard
-            v-for="task in tasks"
+            v-for="task in taksState"
             :key="task.id"
             :task="task"
-            @delete-task="deleteTask(task.id)"
+            @delete-task="removeTask(task.id)"
             @edit-task="editTask(task.id)"
           />
         </div>
@@ -40,29 +40,26 @@
 import FormInput from './FormInput.vue'
 import TaskCard from './TaskCard.vue'
 import { nextTick, ref } from 'vue';
-import { Tasks } from "./TaskState";
+import { Tasks, type Task, taksState } from "./TaskState";
+import { projectActive, incrementTask } from "../Projects/ProjectsState"
 
 
-const task = ref(null)
+const taskEdit = ref(<Task>{})
 const formVisible = ref(false)
 const formContainer = ref(null)
+const { addTask: addNewTask, removeTask, updateTask } = new Tasks();
 
 
-const addTask = (item) => {
-  tasks.push(item)
-  if (taskActive.id === null) {
-    setTaskActive(item)
-  }
-  formVisible.value = false
+const addTask = (item: Task) => {
+
+  addNewTask(item?.name, item?.count, item?.notes, projectActive.value);
+  incrementTask(projectActive.value);
+  showForm()
+
 }
 
-const deleteTask = (id) => {
-  const taskIndex = tasks.findIndex((task) => task.id === id)
-  tasks.splice(taskIndex, 1)
-}
-
-const editTask = (id) => {
-  task.value = tasks.find((task) => task.id === id)
+const editTask = (taskId: number) => {
+  taskEdit.value = taksState.value.find((task) => task.id === taskId)
   showForm()
 }
 

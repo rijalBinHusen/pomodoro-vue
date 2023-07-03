@@ -1,5 +1,6 @@
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from 'vue'
+import { type Task } from "./TaskState"
 
 const emit = defineEmits(['close-form', 'add-task'])
 const inputTitleRef = ref(null)
@@ -8,14 +9,12 @@ onMounted(() => {
   inputTitleRef.value.focus()
 })
 
-const task = ref({
-  id: Date.now(),
+const task = ref(<Task>{
   name: '',
   count: 0,
-  target: 1,
   notes: '',
-  isCompleted: false
 })
+
 const showNote = ref(false)
 
 const closeForm = () => {
@@ -32,7 +31,7 @@ const incrementTaskCount = () => {
   task.value.count++
 }
 const decrementTaskCount = () => {
-  if (task.value > 1) {
+  if (task.value.count > 1) {
     task.value.count--
   }
 }
