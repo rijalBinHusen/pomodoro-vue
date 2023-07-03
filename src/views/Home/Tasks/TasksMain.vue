@@ -3,7 +3,7 @@
         <div
           class="nav-task mb-6 h-14 pb-4 border-b-2 border-emerald-400 flex flex-row justify-between items-center"
         >
-          <span class="text-lg font-semibold">Tasks</span>
+          <span class="text-lg font-semibold">{{ projectActive?.projectName || 'Tasks' }}</span>
           <button
             class="p-1.5 rounded text-emerald-50 bg-emerald-600/80 hover:bg-emerald-600 flex flex-row"
           >
@@ -11,9 +11,9 @@
           </button>
         </div>
 
-        <div class="flex flex-col gap-y-2 mb-6" v-if="taksState.length">
+        <div class="flex flex-col gap-y-2 mb-6" v-if="listOfTask.length">
           <TaskCard
-            v-for="task in taksState"
+            v-for="task in listOfTask"
             :key="task.id"
             :task="task"
             @delete-task="removeTask(task.id)"
@@ -39,8 +39,8 @@
 
 import FormInput from './FormInput.vue'
 import TaskCard from './TaskCard.vue'
-import { nextTick, ref } from 'vue';
-import { Tasks, type Task, taksState } from "./TaskState";
+import { computed, nextTick, ref } from 'vue';
+import { Tasks, type Task, taksState, taskIdActive } from "./TaskState";
 import { projectActive, incrementTask } from "../Projects/ProjectsState"
 
 
@@ -52,8 +52,8 @@ const { addTask: addNewTask, removeTask, updateTask } = new Tasks();
 
 const addTask = (item: Task) => {
 
-  addNewTask(item?.name, item?.count, item?.notes, projectActive.value, item?.target);
-  incrementTask(projectActive.value);
+  addNewTask(item?.name, item?.count, item?.notes, projectActive.value.projectId, item?.target);
+  incrementTask(projectActive.value.projectId);
   showForm()
 
 }
@@ -70,5 +70,9 @@ const showForm = async () => {
     formContainer.value.scrollIntoView({ behavior: 'smooth', block: 'center' })
   }
 }
+
+const listOfTask = computed(() => {
+  return taksState.value.filter((rec) => rec?.projectId === projectActive.value.projectId);
+})
 
 </script>

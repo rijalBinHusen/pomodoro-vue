@@ -13,7 +13,10 @@ export const projects = ref(<project[]>[
     { projectId: 3, projectName: 'Planned', isDefault: true, tasks: 0 }
 ])
 
-export const projectActive = ref(1)
+export const projectActive = ref(<{
+    projectId: number;
+    projectName: string;
+}>{})
 
 export function addProject (projectName: string) {
 
@@ -35,7 +38,16 @@ export function addProject (projectName: string) {
 }
 
 export function setProjectActive (projectId: number) {
-    projectActive.value = projectId
+    const findProject = projects.value.find((rec) => rec?.projectId === projectId);
+
+    if(findProject) {
+
+        projectActive.value = {
+            projectId: findProject?.projectId,
+            projectName: findProject?.projectName
+        }
+
+    }
 }
 
 export function findProjectById (projectId: number) {

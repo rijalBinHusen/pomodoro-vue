@@ -9,7 +9,7 @@ const props = defineProps<project>()
 
 
 const isActive = computed(() => {
-  return projectActive.value === props.projectId
+  return projectActive.value.projectId === props.projectId
 })
 
 const editProject = () => {
