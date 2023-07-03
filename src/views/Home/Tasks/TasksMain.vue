@@ -35,18 +35,17 @@
       </div>
 </template>
 
-<script setup> 
+<script setup lang="ts"> 
 
 import FormInput from './FormInput.vue'
 import TaskCard from './TaskCard.vue'
 import { nextTick, ref } from 'vue';
-import { useDatabaseStore } from '../../../stores/database'
+import { Tasks } from "./TaskState";
 
-const { tasks, taskActive, setTaskActive } = useDatabaseStore()
+
 const task = ref(null)
 const formVisible = ref(false)
 const formContainer = ref(null)
-
 
 
 const addTask = (item) => {
