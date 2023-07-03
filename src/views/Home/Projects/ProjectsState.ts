@@ -1,6 +1,6 @@
 import { ref } from "vue";
 
-interface project {
+export interface project {
     projectId: number;
     projectName: string;
     isDefault: boolean;
@@ -57,7 +57,7 @@ export function incrementTask (projectId: number) {
     const findIndex = projects.value.findIndex((rec) => rec?.projectId === projectId);
 
     if(findIndex > -1) {
-        projects.value[findIndex]['tasks'] += 1;
+        projects.value[findIndex]['tasks']++;
     }
 }
 
@@ -65,6 +65,6 @@ export function decrementTask (projectId: number) {
     const findIndex = projects.value.findIndex((rec) => rec?.projectId === projectId);
 
     if(findIndex > -1) {
-        projects.value[findIndex]['tasks'] -= 1;
+        projects.value[findIndex]['tasks']--;
     }
 }

@@ -1,14 +1,10 @@
-<script setup>
-import { computed, defineProps } from 'vue'
-import { projectActive, setProjectActive } from "./ProjectsState"
+<script setup lang="ts">
+import { computed } from 'vue'
+import { projectActive, setProjectActive, type project } from "./ProjectsState"
 
 const emit = defineEmits(['edit-project'])
 
-const props = defineProps({
-    projectId: Number,
-    projectName: String,
-    projectDefault: Boolean,
-})
+const props = defineProps<project>()
 
 
 
@@ -39,15 +35,19 @@ function setAsProjectActive () {
     <div class="flex flex-row items-center justify-between py-1">
       <h3 class="flex items-center font-semibold text-lg">
         <span
+          v-if="isActive"
           class="material-icons font-bold mr-2"
           >
-        {{ isActive ? 'check_circle' : 'remove_circle' }}
+        check_circle
+        </span>
+        <span v-else class="font-bold mr-2">
+          {{ props.tasks }}
         </span>
         <span class="break-all">
           {{ props.projectName }}
         </span>
       </h3>
-      <div v-if="!props.projectDefault" class="flex flex-row gap-2 items-center">
+      <div v-if="!props.isDefault" class="flex flex-row gap-2 items-center">
         <button
             class="flex flex-row items-center gap-2 hover:bg-slate-200 w-full p-1 rounded"
             @click="editProject"

@@ -52,7 +52,7 @@ const { addTask: addNewTask, removeTask, updateTask } = new Tasks();
 
 const addTask = (item: Task) => {
 
-  addNewTask(item?.name, item?.count, item?.notes, projectActive.value);
+  addNewTask(item?.name, item?.count, item?.notes, projectActive.value, item?.target);
   incrementTask(projectActive.value);
   showForm()
 

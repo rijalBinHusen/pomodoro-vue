@@ -12,7 +12,9 @@
             :key="project.projectId"
             :projectId="project.projectId"
             :projectName="project.projectName"
-            :projectDefault="project.isDefault"
+            :isDefault="project.isDefault"
+            :tasks="project.tasks"
+            :="project"
             @edit-project="editProject(project.projectId)"
             />
         </div>

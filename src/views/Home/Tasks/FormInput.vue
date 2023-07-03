@@ -13,6 +13,7 @@ const task = ref(<Task>{
   name: '',
   count: 0,
   notes: '',
+  target: 1,
 })
 
 const showNote = ref(false)
@@ -27,12 +28,12 @@ const addTask = () => {
   }
   emit('add-task', task.value)
 }
-const incrementTaskCount = () => {
-  task.value.count++
+const incrementTaskTarget = () => {
+  task.value.target++
 }
-const decrementTaskCount = () => {
-  if (task.value.count > 1) {
-    task.value.count--
+const decrementTaskTarget = () => {
+  if (task.value.target > 1) {
+    task.value.target--
   }
 }
 </script>
@@ -55,21 +56,21 @@ const decrementTaskCount = () => {
             type="number"
             class="px-2 py-1 bg-slate-200 text-slate-900 font-semibold rounded w-16 no-arrow"
             min="1"
-            v-model="task.count"
+            v-model="task.target"
             @keyup.enter="addTask"
-            @keypress.up="incrementTaskCount"
-            @keypress.down="decrementTaskCount"
+            @keypress.up="incrementTaskTarget"
+            @keypress.down="decrementTaskTarget"
           />
           <div class="flex flex-row gap-1.5">
             <button
               class="p-1.5 py-1 bg-white shadow border-2 border-slate-300/50 font-bold rounded flex flex-row"
-              @click="incrementTaskCount"
+              @click="incrementTaskTarget"
             >
               <span class="material-icons"> arrow_drop_up </span>
             </button>
             <button
               class="p-1.5 py-1 bg-white shadow border-2 border-slate-300/50 font-bold rounded flex flex-row"
-              @click="decrementTaskCount"
+              @click="decrementTaskTarget"
             >
               <span class="material-icons"> arrow_drop_down </span>
             </button>

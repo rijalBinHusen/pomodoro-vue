@@ -8,6 +8,7 @@ export interface Task {
     isCompleted: boolean;
     isActive: boolean;
     projectId: number;
+    target: number;
 }
 
 export const taksState = ref(<Task[]>[])
@@ -15,23 +16,24 @@ export const taskIdActive = ref(<Number>0);
 
 export class Tasks {
 
-    addTask (name: string, count: number, notes: string, projectId: number) {
+    addTask (name: string, count: number, notes: string, projectId: number, target: number) {
         const isTaskEmpty = taksState.value.length === 0;
 
         const taskId = taksState.value.length + 1;
-
+        
         taksState.value.unshift({
             id: taskId,
             name,
             count,
             notes,
             isCompleted: false,
-            isActive: false,
-            projectId
+            isActive: isTaskEmpty ? true : false,
+            projectId,
+            target
         })
-
+        
         if(isTaskEmpty || taskIdActive.value === 0) {
-            this.setTaskActive(taskId)
+            taskIdActive.value = taskId;
         }
     }
 
@@ -56,7 +58,7 @@ export class Tasks {
         }
     }
     
-    updateTask (taskId: number, name: string, count: number, notes: string, projectId: number) {
+    updateTask (taskId: number, name: string, count: number, notes: string, projectId: number, target: number) {
 
         const findIndex = taksState.value.findIndex((rec) => rec?.id === taskId);
         
@@ -82,6 +84,10 @@ export class Tasks {
         // projectId
         if(record?.projectId !== projectId) {
             taksState.value[findIndex]['projectId'] = projectId;
+        }
+        // target
+        if(record?.target !== target) {
+            taksState.value[findIndex]['target'] = target;
         }
     }
 
