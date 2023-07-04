@@ -35,6 +35,7 @@ export function addProject (projectName: string) {
         setProjectActive(projectId)
     }
 
+    return projectId
 }
 
 export function setProjectActive (projectId: number) {
@@ -68,9 +69,7 @@ export function updateProjectById (projectId: number, projectName: string) {
 export function incrementTask (projectId: number) {
     const findIndex = projects.value.findIndex((rec) => rec?.projectId === projectId);
 
-    if(findIndex > -1) {
-        projects.value[findIndex]['tasks']++;
-    }
+    projects.value[findIndex]['tasks']++;
 }
 
 export function decrementTask (projectId: number) {
