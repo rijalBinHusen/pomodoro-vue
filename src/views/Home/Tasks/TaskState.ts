@@ -1,4 +1,5 @@
 import { ref } from "vue"
+import { incrementTask, decrementTask } from "../Projects/ProjectsState"
 
 export interface Task {
     id: number;
@@ -13,13 +14,16 @@ export interface Task {
 
 export const taksState = ref(<Task[]>[])
 export const taskIdActive = ref(<Number>0);
+const lastId = ref(<Number>1);
 
 export class Tasks {
 
     addTask (name: string, count: number, notes: string, projectId: number, target: number) {
         const isTaskEmpty = taksState.value.length === 0;
 
-        const taskId = taksState.value.length + 1;
+        const allId = <number[]>[lastId.value, taksState.value.length + 1]
+
+        const taskId = Math.max(...allId);
         
         taksState.value.unshift({
             id: taskId,
@@ -35,6 +39,8 @@ export class Tasks {
         if(isTaskEmpty || taskIdActive.value === 0) {
             taskIdActive.value = taskId;
         }
+
+        lastId.value = taskId;
     }
 
     setTaskActive(taskId: number) {
@@ -91,4 +97,31 @@ export class Tasks {
         }
     }
 
+    markTaskFinished(taskId: number) {
+        // projectId 1 = Finished
+        const findTask = taksState.value.findIndex((rec) => rec?.id === taskId);
+
+        if(findTask > -1) {
+            // decrement task on project
+            decrementTask(taksState.value[findTask].id)
+            // increment task on finished project
+            incrementTask(1);
+            // update task
+            taksState.value[findTask].isCompleted = true;
+        }
+    }
+
+    moveTaskToProjectId(taskId: number, projectId: number) {
+        // projectId 4 = Finished
+        const findTask = taksState.value.findIndex((rec) => rec?.id === taskId);
+
+        if(findTask > -1) {
+            // decrement task on project
+            decrementTask(taksState.value[findTask].id)
+            // increment task on finished project
+            incrementTask(projectId);
+            // update task
+            taksState.value[findTask].projectId = projectId;
+        }
+    }
 }

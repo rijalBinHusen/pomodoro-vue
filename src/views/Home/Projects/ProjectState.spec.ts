@@ -4,7 +4,7 @@ import { faker } from "@faker-js/faker"
 
 function waitingFor() {
     return new Promise(resolve => {
-        setTimeout(resolve, 60);
+        setTimeout(resolve, 20);
       });
 }
 

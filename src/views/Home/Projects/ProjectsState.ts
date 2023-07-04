@@ -8,9 +8,10 @@ export interface project {
 }
 
 export const projects = ref(<project[]>[
-    { projectId: 1, projectName: 'Today', isDefault: true, tasks: 0},
-    { projectId: 2, projectName: 'Tomorow', isDefault: true, tasks: 0 },
-    { projectId: 3, projectName: 'Planned', isDefault: true, tasks: 0 }
+    { projectId: 2, projectName: 'Today', isDefault: true, tasks: 0},
+    { projectId: 3, projectName: 'Tomorow', isDefault: true, tasks: 0 },
+    { projectId: 4, projectName: 'Planned', isDefault: true, tasks: 0 },
+    { projectId: 1, projectName: 'Finished', isDefault: true, tasks: 0}
 ])
 
 export const projectActive = ref(<{
