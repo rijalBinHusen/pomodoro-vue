@@ -31,7 +31,10 @@
         </div>
 
         <div v-if="formVisible" ref="formContainer">
-          <FormInput @close-form="showForm" @add-task="addTask" />
+          <FormInput
+            @close-form="showForm"
+            @add-task="addTask" 
+          />
         </div>
 
         <button
