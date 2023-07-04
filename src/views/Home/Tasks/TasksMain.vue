@@ -50,7 +50,7 @@ import FormInput from './FormInput.vue'
 import TaskCard from './TaskCard.vue'
 import { computed, nextTick, ref } from 'vue';
 import { Tasks, type Task, taksState, taskIdActive } from "./TaskState";
-import { projectActive, incrementTask } from "../Projects/ProjectsState"
+import { projectActive } from "../Projects/ProjectsState"
 
 
 const taskEdit = ref(<Task>{})
@@ -62,7 +62,6 @@ const { addTask: addNewTask, removeTask, updateTask } = new Tasks();
 const addTask = (item: Task) => {
 
   addNewTask(item?.name, item?.count, item?.notes, projectActive.value.projectId, item?.target);
-  incrementTask(projectActive.value.projectId);
   showForm()
 
 }

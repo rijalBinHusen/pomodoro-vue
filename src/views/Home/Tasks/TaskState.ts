@@ -40,7 +40,11 @@ export class Tasks {
             taskIdActive.value = taskId;
         }
 
+        incrementTask(projectId)
+
         lastId.value = taskId;
+
+        return taskId;
     }
 
     setTaskActive(taskId: number) {
@@ -62,6 +66,8 @@ export class Tasks {
                 taskIdActive.value = 0;
             }
         }
+
+        decrementTask(taksState.value[findIndex].projectId);
     }
     
     updateTask (taskId: number, name: string, count: number, notes: string, projectId: number, target: number) {
