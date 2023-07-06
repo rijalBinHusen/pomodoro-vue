@@ -1,38 +1,19 @@
 import { faker } from "@faker-js/faker"
 import { describe, it, expect } from 'vitest';
-import { mount, shallowMount } from "@vue/test-utils"
-import { nextTick } from "vue"
+import { mount, flushPromises } from "@vue/test-utils"
 import FormInput from "./FormInput.vue"
-
-
-// const { window } = jsdom.fromFile('./index.html');
-
-// import { mount } from 'vitest';
-// import jsdom from 'jsdom';
-// import MyComponent from './MyComponent.vue';
-
-// const { window } = jsdom.fromFile('./index.html');
-
-// describe('MyComponent', () => {
-//   it('should render the correct text', () => {
-//     const wrapper = mount(MyComponent, {
-//       attachTo: window.document,
-//     });
-//     expect(wrapper.text()).toBe('Hello, world!');
-//   });
-// });
 
 
 describe('Form input task', () => {
 
-  it('should render the component', () => {
+  const propsTask = {
+    name: 'your task name',
+    count: 1,
+    notes: 'Your task notes',
+    target: 1
+  }
 
-    const propsTask = {
-      name: 'your task name',
-      count: 1,
-      notes: 'Your task notes',
-      target: 1
-    }
+  it('should render the component', () => {
 
     const wrapper = mount(FormInput, {
       props: propsTask
@@ -44,15 +25,19 @@ describe('Form input task', () => {
 
   it('Create new task', async () => {
 
-    const wrapper = mount(FormInput);
+    const wrapper = mount(FormInput, {
+      props: propsTask
+    });
+
+    await flushPromises();
     const taskName = wrapper.find('#task-name');
-    const btnIncrement = wrapper.find('#btnIncrementTask');
-    const btnDecrement = wrapper.find('#btnDecrementTask');
-    const btnShowTaskNotes = wrapper.find('#btnShowTaskNotes');
-    const taskNotes = wrapper.find('#taskNotes');
-    const btnCloseForm = wrapper.find('#btnCloseForm');
-    const btnAddTask = wrapper.find('#btnAddTask');
-    const taskTarget = wrapper.find('#taskTarget')
+    const btnIncrement = wrapper.find('#button-increment-task');
+    const btnDecrement = wrapper.find('#button-decrement-task');
+    const btnShowTaskNotes = wrapper.find('#button-show-task-notes');
+    const taskNotes = wrapper.find('#task-notes');
+    const btnCloseForm = wrapper.find('#button-close-form');
+    const btnAddTask = wrapper.find('#button-add-task');
+    const taskTarget = wrapper.find('#task-target')
 
     expect(taskName.exists()).toBe(true);
     expect(btnIncrement.exists()).toBe(true);
@@ -61,32 +46,34 @@ describe('Form input task', () => {
     expect(btnCloseForm.exists()).toBe(true);
     expect(btnAddTask.exists()).toBe(true);
     expect(taskTarget.exists()).toBe(true);
+    expect(taskTarget.text()).equal(1);
     
     const newTaskName = faker.string.alphanumeric(10);
     // insert task name
     await taskName.setValue(newTaskName);
-    await nextTick()
+    await flushPromises()
 
     // show input task note text area
     await btnShowTaskNotes.trigger('click');
-    await nextTick()
+    await flushPromises()
     expect(taskNotes.exists()).toBe(true);
 
     // insert  task notes
     const newTaskNote = faker.string.symbol(30);
     await taskNotes.setValue(newTaskNote);
-    await nextTick()
+    await flushPromises()
 
     // increment target
     await btnIncrement.trigger('click');
     await btnIncrement.trigger('click');
-    await nextTick()
+    await flushPromises()
+    await flushPromises()
 
     expect(taskTarget.text()).equal(2);
 
     // decrement target
     await btnDecrement.trigger('click');
-    await nextTick()
+    await flushPromises()
     expect(taskTarget.text()).equal(1);
 
     // add task
