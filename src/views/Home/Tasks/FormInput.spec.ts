@@ -1,11 +1,11 @@
 import { faker } from "@faker-js/faker"
 import { describe, it, expect } from 'vitest';
-import { mount } from "@vue/test-utils"
+import { mount, shallowMount } from "@vue/test-utils"
 import { nextTick } from "vue"
-import jsdom from "jsdom";
 import FormInput from "./FormInput.vue"
 
-const { window } = jsdom.fromFile('./index.html');
+
+// const { window } = jsdom.fromFile('./index.html');
 
 // import { mount } from 'vitest';
 // import jsdom from 'jsdom';
@@ -27,7 +27,17 @@ describe('Form input task', () => {
 
   it('should render the component', () => {
 
-    const wrapper = mount(FormInput);
+    const propsTask = {
+      name: 'your task name',
+      count: 1,
+      notes: 'Your task notes',
+      target: 1
+    }
+
+    const wrapper = mount(FormInput, {
+      props: propsTask
+    });
+    
     expect(wrapper.find('div').exists()).toBe(true);
 
   });
