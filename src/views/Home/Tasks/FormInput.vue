@@ -4,17 +4,25 @@ import { type Task } from "./TaskState"
 
 const emit = defineEmits(['close-form', 'add-task']);
 const inputTitleRef = ref(null);
+const isEditMode = ref(false);
 
 onMounted(() => {
   inputTitleRef.value.focus()
+  if(props.name) {
+    task.value.name = props.name
+    task.value.count = props.count
+    task.value.notes = props.notes
+    task.value.target = props.target
+    isEditMode.value = true
+  }
 })
 
-defineProps({
-  name: String,
-  count: Number,
-  notes: String,
-  target: Number
-})
+const props = defineProps<{
+  name?: string,
+  count?: number,
+  notes?: string,
+  target?: number
+}>()
 
 const task = ref(<Task>{
   name: '',
@@ -119,7 +127,7 @@ const decrementTaskTarget = () => {
         class="py-2.5 px-5 rounded bg-slate-800/90 hover:bg-slate-800 text-rose-50 shadow-xl flex text-sm font-semibold flex-row self-end"
         @click="addTask"
       >
-        Add Task
+        {{ (isEditMode ? 'Update' : 'Add') + ' Task'}}
       </button>
     </div>
   </div>

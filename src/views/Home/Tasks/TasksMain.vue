@@ -13,21 +13,20 @@
 
         <div class="flex flex-col gap-y-2 mb-6" v-if="listOfTask.length">
           <template v-for="(task, index) in listOfTask" :key="task.id">
-          <TaskCard
-            :index="index"
-            :count="task.count"
-            :isActive="task.isActive"
-            :isCompleted="task.isCompleted"
-            :name="task.name"
-            :notes="task.notes"
-            :projectId="task.projectId"
-            :target="task.target"
-            :id="task.id"
-            @delete-task="removeTask(task.id)"
-            @edit-task="editTask(task.id)"
-          />
-
-        </template>
+            <TaskCard
+              :index="index"
+              :count="task.count"
+              :isActive="task.isActive"
+              :isCompleted="task.isCompleted"
+              :name="task.name"
+              :notes="task.notes"
+              :projectId="task.projectId"
+              :target="task.target"
+              :id="task.id"
+              @delete-task="removeTask(task.id)"
+              @update-task="updateCurrentTask"
+            />
+          </template>
         </div>
 
         <div v-if="formVisible" ref="formContainer">
@@ -57,7 +56,6 @@ import { Tasks, type Task, taksState, taskIdActive } from "./TaskState";
 import { projectActive } from "../Projects/ProjectsState"
 
 
-const taskEdit = ref(<Task>{})
 const formVisible = ref(false)
 const formContainer = ref(null)
 const { addTask: addNewTask, removeTask, updateTask } = new Tasks();
@@ -70,9 +68,8 @@ const addTask = (item: Task) => {
 
 }
 
-const editTask = (taskId: number) => {
-  taskEdit.value = taksState.value.find((task) => task.id === taskId)
-  showForm()
+const updateCurrentTask = (task: Task) => {
+  updateTask(task.id, task.name, task.count, task.notes, task.projectId, task.target)
 }
 
 const showForm = async () => {
