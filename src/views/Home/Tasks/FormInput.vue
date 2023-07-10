@@ -46,7 +46,7 @@ const decrementTaskTarget = () => {
 </script>
 
 <template>
-  <div class="input-form card bg-white rounded-lg text-slate-500 overflow-hidden">
+  <div id="form-input-task" class="input-form card bg-white rounded-lg text-slate-500 overflow-hidden">
     <div class="card-body p-3 grid gap-3">
       <input
         type="text"

@@ -17,7 +17,7 @@ export const projects = ref(<project[]>[
 export const projectActive = ref(<{
     projectId: number;
     projectName: string;
-}>{})
+}>{ projectId: 2, projectName: 'Today'})
 
 export function addProject (projectName: string) {
 

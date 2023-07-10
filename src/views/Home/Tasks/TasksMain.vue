@@ -1,5 +1,5 @@
 <template>
-    <div class="flex-row gap-2.5 w-96">
+    <div id="task-main-board" class="flex-row gap-2.5 w-96">
         <div
           class="nav-task mb-6 h-14 pb-4 border-b-2 border-emerald-400 flex flex-row justify-between items-center"
         >
@@ -41,6 +41,7 @@
           v-else
           class="py-2 mt-6 bg-emerald-800/70 text-lg w-full font-semibold text-emerald-200 hover:bg-emerald-800 rounded border-2 border-dashed border-emerald-400 flex flex-row gap-1 items-center justify-center"
           @click="showForm"
+          id="task-main-button-add-task"
         >
           <span class="material-icons"> add_circle </span> Add Task
         </button>

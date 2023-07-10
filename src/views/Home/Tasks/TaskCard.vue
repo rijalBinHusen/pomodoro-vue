@@ -51,6 +51,7 @@ function dragStart (elm: any) {
 
 <template>
   <div
+    :id="'task-card-'+ index"
     :class="{
       'border-slate-900': isActive,
       'hover:border-slate-900/30': !isActive
